@@ -29,6 +29,9 @@
     this.template = options.template;
     this.appendWidgetTo = options.appendWidgetTo;
     this.showWidgetOnAddonClick = options.showWidgetOnAddonClick;
+    this.zIndex = options.zIndex;
+    this.iconChevronUpClass = options.iconChevronUpClass;
+    this.iconChevronDownClass = options.iconChevronDownClass;
 
     this._init();
   };
@@ -255,16 +258,16 @@
 
       templateContent = '<table>'+
          '<tr>'+
-           '<td><a href="#" data-action="incrementHour"><i class="icon-chevron-up"></i></a></td>'+
+           '<td><a href="#" data-action="incrementHour"><i class="'+this.iconChevronUpClass+'"></i></a></td>'+
            '<td class="separator">&nbsp;</td>'+
-           '<td><a href="#" data-action="incrementMinute"><i class="icon-chevron-up"></i></a></td>'+
+           '<td><a href="#" data-action="incrementMinute"><i class="'+this.iconChevronUpClass+'"></i></a></td>'+
            (this.showSeconds ?
              '<td class="separator">&nbsp;</td>'+
-             '<td><a href="#" data-action="incrementSecond"><i class="icon-chevron-up"></i></a></td>'
+             '<td><a href="#" data-action="incrementSecond"><i class="'+this.iconChevronUpClass+'"></i></a></td>'
            : '') +
            (this.showMeridian ?
              '<td class="separator">&nbsp;</td>'+
-             '<td class="meridian-column"><a href="#" data-action="toggleMeridian"><i class="icon-chevron-up"></i></a></td>'
+             '<td class="meridian-column"><a href="#" data-action="toggleMeridian"><i class="'+this.iconChevronUpClass+'"></i></a></td>'
            : '') +
          '</tr>'+
          '<tr>'+
@@ -281,16 +284,16 @@
            : '') +
          '</tr>'+
          '<tr>'+
-           '<td><a href="#" data-action="decrementHour"><i class="icon-chevron-down"></i></a></td>'+
+           '<td><a href="#" data-action="decrementHour"><i class="'+this.iconChevronDownClass+'"></i></a></td>'+
            '<td class="separator"></td>'+
-           '<td><a href="#" data-action="decrementMinute"><i class="icon-chevron-down"></i></a></td>'+
+           '<td><a href="#" data-action="decrementMinute"><i class="'+this.iconChevronDownClass+'"></i></a></td>'+
            (this.showSeconds ?
             '<td class="separator">&nbsp;</td>'+
-            '<td><a href="#" data-action="decrementSecond"><i class="icon-chevron-down"></i></a></td>'
+            '<td><a href="#" data-action="decrementSecond"><i class="'+this.iconChevronDownClass+'"></i></a></td>'
            : '') +
            (this.showMeridian ?
             '<td class="separator">&nbsp;</td>'+
-            '<td><a href="#" data-action="toggleMeridian"><i class="icon-chevron-down"></i></a></td>'
+            '<td><a href="#" data-action="toggleMeridian"><i class="'+this.iconChevronDownClass+'"></i></a></td>'
            : '') +
          '</tr>'+
        '</table>';
@@ -614,7 +617,7 @@
       var widgetWidth = this.$widget.outerWidth(), widgetHeight = this.$widget.outerHeight(), visualPadding = 10, windowWidth =
         $(window).width(), windowHeight = $(window).height(), scrollTop = $(window).scrollTop();
 
-      var zIndex = parseInt(this.$element.parents().filter(function() {}).first().css('z-index'), 10) + 10;
+      var zIndex = this.zIndex ? this.zIndex : parseInt(this.$element.parents().filter(function() {}).first().css('z-index'), 10) + 10;
       var offset = this.component ? this.component.parent().offset() : this.$element.offset();
       var height = this.component ? this.component.outerHeight(true) : this.$element.outerHeight(false);
       var width = this.component ? this.component.outerWidth(true) : this.$element.outerWidth(false);
@@ -1089,7 +1092,10 @@
     showMeridian: true,
     template: 'dropdown',
     appendWidgetTo: 'body',
-    showWidgetOnAddonClick: true
+    showWidgetOnAddonClick: true,
+    zIndex: null,
+    iconChevronUpClass: 'icon-chevron-up',
+    iconChevronDownClass: 'icon-chevron-down'
   };
 
   $.fn.timepicker.Constructor = Timepicker;
